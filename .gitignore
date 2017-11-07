@@ -1,0 +1,7 @@
+# idea related crap
+.idea
+*.iml
+out
+
+# osx related crap
+.DS_Store
