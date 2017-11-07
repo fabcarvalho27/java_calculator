@@ -19,7 +19,7 @@ public class Calculator extends Application {
     private GridPane grid;
     private Button[][] buttons;
     private Brain brain = new Brain(this);
-    private Label screen =
+    private Label screen;
 
 
     @Override
@@ -93,7 +93,7 @@ public class Calculator extends Application {
 
         String screenText = "0";    //Default screen value
 
-        Label screen = new Label(screenText);
+        screen = new Label(screenText);
 
         //Screen configurations
         screen.setPrefHeight(Configs.screenHeight);
@@ -125,6 +125,9 @@ public class Calculator extends Application {
 
     }
 
+    public Label getScreen() {
+        return screen;
+    }
 
     public static void main(String[] args) {
         launch(args);

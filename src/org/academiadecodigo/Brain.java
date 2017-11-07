@@ -41,7 +41,6 @@ public class Brain {
                 doOperation();
                 System.out.println(result);
                 resetCalculator();
-                calculator.
                 break;
 
             default:
@@ -109,5 +108,6 @@ public class Brain {
             default:
                 result = 0;
         }
+        calculator.getScreen().setText(String.valueOf(result));
     }
 }
