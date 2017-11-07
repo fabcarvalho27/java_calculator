@@ -1,22 +1,28 @@
 package org.academiadecodigo;
 
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 /**
  * Created by codecadet on 07/11/2017.
  */
 public class Brain {
 
-    private Calculator calculator;
+    private UserInterface userInterface;
 
-    private int operand1 = 0;
-    private int operand2 = 0;
-
+    private String operand1 = "";
+    private String operand2 = "";
     private String operator;
 
     private double result;
 
-    public Brain(Calculator calculator) {
-        this.calculator = calculator;
+
+    public Brain(UserInterface userInterface) {
+        this.userInterface = userInterface;
     }
+
 
     public void handleButton(String buttonID) {
 
@@ -33,11 +39,18 @@ public class Brain {
 
         switch (buttonID) {
 
-            case "DEL":
+            case "AC":
                 resetCalculator();
+                setResult(0);
+                changeScreenLabel("0");
                 break;
 
             case "=":
+                if (result != 0) {
+                    operand1 = String.valueOf(result);
+                    System.out.println("Operand 1: " + operand1);
+                }
+
                 doOperation();
                 System.out.println(result);
                 resetCalculator();
@@ -45,69 +58,108 @@ public class Brain {
 
             default:
                 setOperator(buttonID);
-
         }
-                System.out.println(operator);
+
+        System.out.println(operator);
     }
 
     private void handleNum(String buttonID) {
 
-        int buttonNumber = Integer.parseInt(buttonID);
-
         if (operator == null) {
 
-            operand1 = operand1 + buttonNumber;
+            operand1 = operand1 + buttonID;
 
-            System.out.println("Operand 1: " + operand1);
+            changeScreenLabel(operand1);
+
         } else {
 
-            operand2 = operand2 + buttonNumber;
-            System.out.println("Operand 2: " + operand2);
+            operand2 = operand2 + buttonID;
+
+            changeScreenLabel(operand2);
         }
+    }
+
+    private void doOperation() {
+
+        double num1 = Double.parseDouble(operand1);
+        double num2 = Double.parseDouble(operand2);
+
+        switch (operator) {
+            case "+":
+                result = num1 + num2;
+                break;
+            case "-":
+                result = num1 - num2;
+                break;
+            case "*":
+                result = num1 * num2;
+                break;
+            case "/":
+                if(num2 == 0){
+                    changeScreenLabel("err");
+                    resetCalculator();
+                    setResult(0);
+                    return;
+                }
+                result = num1 / num2;
+                break;
+
+            default:
+                result = 0;
+        }
+
+        changeScreenLabel(changeNumFormat(result));
+
+
+        if(isAcademia(result)){
+            changeScreenLabel("<Academia de Código>");
+            userInterface.getScreen().setFont(Font.font(Configs.calculatorFont, Configs.calculatorFontWeight,20));
+            userInterface.getScreen().setTextFill(Color.RED);
+        }
+
     }
 
     private boolean isNum(String buttonID) {
         return buttonID.matches("\\d");
     }
 
-    private void setOperator(String operator) {
-        this.operator = operator;
-    }
+    private boolean isAcademia(double result){
 
-    public void setOperand1(int operand1) {
-        this.operand1 = operand1;
-    }
-
-    public void setOperand2(int operand2) {
-        this.operand2 = operand2;
+        return result==127;
     }
 
     private void resetCalculator() {
 
-        setOperand1(0);
-        setOperand2(0);
+        setOperand1("");
+        setOperand2("");
         setOperator(null);
     }
 
-    private void doOperation() {
+    public void changeScreenLabel(String num) {
 
-        switch (operator) {
-            case "+":
-                result = operand1 + operand2;
-                break;
-            case "-":
-                result = operand1 - operand2;
-                break;
-            case "*":
-                result = operand1 * operand2;
-                break;
-            case "/":
-                result = operand1 / operand2;
-                break;
+        userInterface.getScreen().setText(num);
+    }
 
-            default:
-                result = 0;
-        }
-        calculator.getScreen().setText(String.valueOf(result));
+    public String changeNumFormat(double num) {
+
+        NumberFormat formatResult = new DecimalFormat("#.#####");
+        return formatResult.format(num);
+    }
+
+
+    private void setOperator(String operator) {
+        this.operator = operator;
+    }
+
+    public void setOperand1(String operand1) {
+        this.operand1 = operand1;
+    }
+
+    public void setOperand2(String operand2) {
+        this.operand2 = operand2;
+    }
+
+    public void setResult(double result) {
+        this.result = result;
     }
 }

@@ -1,6 +1,5 @@
 package org.academiadecodigo;
 
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -14,15 +13,13 @@ import javafx.stage.Stage;
 /**
  * Created by codecadet on 07/11/2017.
  */
-public class Calculator extends Application {
+public class UserInterface {
 
     private GridPane grid;
     private Button[][] buttons;
     private Brain brain = new Brain(this);
     private Label screen;
 
-
-    @Override
     public void start(Stage primaryStage) throws Exception {
 
         createGrid(false);
@@ -64,7 +61,7 @@ public class Calculator extends Application {
 
         //Buttons structure
         String[][] buttonsLabel = new String[][]{
-                {"7", "4", "1", "DEL"},
+                {"7", "4", "1", "AC"},
                 {"8", "5", "2", "0"},
                 {"9", "6", "3", "="},
                 {"+", "-", "*", "/"}
@@ -127,9 +124,5 @@ public class Calculator extends Application {
 
     public Label getScreen() {
         return screen;
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

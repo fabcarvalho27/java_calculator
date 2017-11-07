@@ -22,12 +22,12 @@ public abstract class Configs {
     //Buttons
     public static final double buttonWidth = gridWidth / 4;
     public static final double buttonHeight = gridHeight / 5;
-    public static final int buttonFontSize = 20;
+    public static final int buttonFontSize = 28;
 
     //Screen
     public static final int screenColsWidth = 4;
     public static final int screenRowsHeight = 1;
-    public static final double screenHeight = gridHeight / 5;
+    public static final double screenHeight = gridHeight / 4;
     public static final int screenFontSize = 50;
 
 }
