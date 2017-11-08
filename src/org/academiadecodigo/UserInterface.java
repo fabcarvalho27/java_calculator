@@ -48,7 +48,7 @@ public class UserInterface {
 
     }
 
-    public void createGrid(boolean visibleLines) {
+    private void createGrid(boolean visibleLines) {
         grid = new GridPane();
 
         //grid configurations
@@ -57,7 +57,7 @@ public class UserInterface {
         grid.setPrefSize(Configs.gridWidth, Configs.gridWidth);
     }
 
-    public void createButtons() {
+    private void createButtons() {
 
         //Buttons structure
         String[][] buttonsLabel = new String[][]{
@@ -86,7 +86,7 @@ public class UserInterface {
         }
     }
 
-    public void createScreen() {
+    private void createScreen() {
 
         String screenText = "0";    //Default screen value
 
@@ -102,7 +102,7 @@ public class UserInterface {
 
     }
 
-    public void createEventsHandle() {
+    private void createEventsHandle() {
 
         EventHandler<ActionEvent> handler = new EventHandler<ActionEvent>() {
 

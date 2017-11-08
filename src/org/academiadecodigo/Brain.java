@@ -2,6 +2,7 @@ package org.academiadecodigo;
 
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
@@ -41,26 +42,30 @@ public class Brain {
 
             case "AC":
                 resetCalculator();
-                setResult(0);
+                clearMemory();
                 changeScreenLabel("0");
                 break;
 
             case "=":
-                if (result != 0) {
+                if (hasMemory()) {
                     operand1 = String.valueOf(result);
-                    System.out.println("Operand 1: " + operand1);
                 }
 
                 doOperation();
-                System.out.println(result);
                 resetCalculator();
                 break;
 
             default:
+                if (operator != null) {
+                    doOperation();
+                    resetCalculator();
+                    operand1 = String.valueOf(result);
+                    setOperator(buttonID);
+                    return;
+                }
                 setOperator(buttonID);
         }
 
-        System.out.println(operator);
     }
 
     private void handleNum(String buttonID) {
@@ -80,11 +85,27 @@ public class Brain {
     }
 
     private void doOperation() {
+        if (hasOperands()) {
+
+            operand1 = "0";
+            operand2 = "0";
+        }
+
+        if (divideBy0()) {
+
+            changeScreenLabel("err");
+            resetCalculator();
+            clearMemory();
+            return;
+
+        }
 
         double num1 = Double.parseDouble(operand1);
         double num2 = Double.parseDouble(operand2);
 
-        switch (operator) {
+        switch (operator)
+
+        {
             case "+":
                 result = num1 + num2;
                 break;
@@ -95,12 +116,6 @@ public class Brain {
                 result = num1 * num2;
                 break;
             case "/":
-                if(num2 == 0){
-                    changeScreenLabel("err");
-                    resetCalculator();
-                    setResult(0);
-                    return;
-                }
                 result = num1 / num2;
                 break;
 
@@ -111,21 +126,35 @@ public class Brain {
         changeScreenLabel(changeNumFormat(result));
 
 
-        if(isAcademia(result)){
+        if (
+
+                isAcademia(result))
+
+        {
             changeScreenLabel("<Academia de Código>");
-            userInterface.getScreen().setFont(Font.font(Configs.calculatorFont, Configs.calculatorFontWeight,20));
+            userInterface.getScreen().setFont(Font.font(Configs.calculatorFont, Configs.calculatorFontWeight, 20));
             userInterface.getScreen().setTextFill(Color.RED);
         }
 
     }
 
     private boolean isNum(String buttonID) {
+
         return buttonID.matches("\\d");
     }
 
-    private boolean isAcademia(double result){
+    private boolean hasOperands() {
 
-        return result==127;
+        return operand1.equals("") || operand2.equals("");
+    }
+
+    private boolean hasMemory() {
+        return result != 0;
+    }
+
+    private boolean isAcademia(double result) {
+
+        return result == 127;
     }
 
     private void resetCalculator() {
@@ -135,12 +164,20 @@ public class Brain {
         setOperator(null);
     }
 
-    public void changeScreenLabel(String num) {
+    private void clearMemory() {
+        setResult(0);
+    }
+
+    private boolean divideBy0() {
+        return operand2.equals("0");
+    }
+
+    private void changeScreenLabel(String num) {
 
         userInterface.getScreen().setText(num);
     }
 
-    public String changeNumFormat(double num) {
+    private String changeNumFormat(double num) {
 
         NumberFormat formatResult = new DecimalFormat("#.#####");
         return formatResult.format(num);
@@ -151,15 +188,15 @@ public class Brain {
         this.operator = operator;
     }
 
-    public void setOperand1(String operand1) {
+    private void setOperand1(String operand1) {
         this.operand1 = operand1;
     }
 
-    public void setOperand2(String operand2) {
+    private void setOperand2(String operand2) {
         this.operand2 = operand2;
     }
 
-    public void setResult(double result) {
+    private void setResult(double result) {
         this.result = result;
     }
 }
