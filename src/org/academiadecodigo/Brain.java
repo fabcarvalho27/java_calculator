@@ -126,13 +126,9 @@ public class Brain {
         changeScreenLabel(changeNumFormat(result));
 
 
-        if (
-
-                isAcademia(result))
-
-        {
+        if ( isAcademia(result)) {
             changeScreenLabel("<Academia de Código>");
-            userInterface.getScreen().setFont(Font.font(Configs.calculatorFont, Configs.calculatorFontWeight, 20));
+            userInterface.getScreen().setFont(Font.font(Configs.CALCULATOR_FONT, Configs.CALCULATOR_FONT_WEIGHT, 20));
             userInterface.getScreen().setTextFill(Color.RED);
         }
 

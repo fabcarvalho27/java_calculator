@@ -43,7 +43,7 @@ public class UserInterface {
 
     private void createScene(Stage primaryStage) {
 
-        primaryStage.setScene(new Scene(grid, Configs.gridWidth, Configs.gridHeight));
+        primaryStage.setScene(new Scene(grid, Configs.GRID_WIDTH, Configs.GRID_HEIGHT));
         primaryStage.setTitle("FC Calculator");
 
     }
@@ -52,9 +52,9 @@ public class UserInterface {
         grid = new GridPane();
 
         //grid configurations
-        grid.setAlignment(Configs.gridPosition);
+        grid.setAlignment(Configs.GRID_POSITION);
         grid.setGridLinesVisible(visibleLines);
-        grid.setPrefSize(Configs.gridWidth, Configs.gridWidth);
+        grid.setPrefSize(Configs.GRID_WIDTH, Configs.GRID_WIDTH);
     }
 
     private void createButtons() {
@@ -67,17 +67,17 @@ public class UserInterface {
                 {"+", "-", "*", "/"}
         };
 
-        buttons = new Button[Configs.buttonsEachCol][Configs.buttonsEachRow];
+        buttons = new Button[Configs.BUTTONS_EACH_COL][Configs.BUTTONS_EACH_ROW];
 
-        for (int x = 0; x < Configs.buttonsEachCol; x++) {
-            for (int y = 0; y < Configs.buttonsEachRow; y++) {
+        for (int x = 0; x < Configs.BUTTONS_EACH_COL; x++) {
+            for (int y = 0; y < Configs.BUTTONS_EACH_ROW; y++) {
 
                 //create button
                 buttons[x][y] = new Button(buttonsLabel[x][y]);
 
                 //button configurations
-                buttons[x][y].setFont(Font.font(Configs.calculatorFont, Configs.calculatorFontWeight, Configs.buttonFontSize));
-                buttons[x][y].setPrefSize(Configs.buttonWidth, Configs.buttonHeight);
+                buttons[x][y].setFont(Font.font(Configs.CALCULATOR_FONT, Configs.CALCULATOR_FONT_WEIGHT, Configs.BUTTON_FONT_SIZE));
+                buttons[x][y].setPrefSize(Configs.BUTTON_WIDTH, Configs.BUTTON_HEIGHT);
 
 
                 //add button to grid
@@ -93,12 +93,12 @@ public class UserInterface {
         screen = new Label(screenText);
 
         //Screen configurations
-        screen.setPrefHeight(Configs.screenHeight);
-        screen.setFont(Font.font(Configs.calculatorFont, Configs.calculatorFontWeight, Configs.screenFontSize));
+        screen.setPrefHeight(Configs.SCREEN_HEIGHT);
+        screen.setFont(Font.font(Configs.CALCULATOR_FONT, Configs.CALCULATOR_FONT_WEIGHT, Configs.SCREEN_FONT_SIZE));
         GridPane.setHalignment(screen, HPos.RIGHT);
 
         //add screen to grid
-        grid.add(screen, 0, 0, Configs.screenColsWidth, Configs.screenRowsHeight);
+        grid.add(screen, 0, 0, Configs.SCREEN_COLS_WIDTH, Configs.SCREEN_ROWS_HEIGHT);
 
     }
 
@@ -113,8 +113,8 @@ public class UserInterface {
             }
         };
 
-        for (int x = 0; x < Configs.buttonsEachCol; x++) {
-            for (int y = 0; y < Configs.buttonsEachRow; y++) {
+        for (int x = 0; x < Configs.BUTTONS_EACH_COL; x++) {
+            for (int y = 0; y < Configs.BUTTONS_EACH_ROW; y++) {
                 buttons[x][y].setOnAction(handler);
 
             }
