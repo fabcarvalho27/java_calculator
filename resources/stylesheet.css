@@ -3,12 +3,12 @@
 }
 
 .buttons{
-    -fx-background-color: hotpink;
-    -fx-border-color: hotpink;
+    -fx-background-color: lightpink;
+    -fx-border-color: lightpink;
 }
 
 .operatorButton{
-    -fx-background-color: deeppink;
+    -fx-background-color: hotpink;
 }
 
 .screen{
