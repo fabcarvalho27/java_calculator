@@ -1,0 +1,16 @@
+.root { /* selector */
+    -fx-background-color: #222222; /* style rules */
+}
+
+.buttons{
+    -fx-background-color: hotpink;
+    -fx-border-color: hotpink;
+}
+
+.operatorButton{
+    -fx-background-color: deeppink;
+}
+
+.screen{
+    -fx-text-fill: white;
+}

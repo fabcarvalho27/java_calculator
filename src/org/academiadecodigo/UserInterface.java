@@ -6,6 +6,7 @@ import javafx.geometry.HPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -44,6 +45,7 @@ public class UserInterface {
     private void createScene(Stage primaryStage) {
 
         primaryStage.setScene(new Scene(grid, Configs.GRID_WIDTH, Configs.GRID_HEIGHT));
+        primaryStage.getScene().getStylesheets().add("stylesheet.css");
         primaryStage.setTitle("FC Calculator");
 
     }
@@ -55,6 +57,7 @@ public class UserInterface {
         grid.setAlignment(Configs.GRID_POSITION);
         grid.setGridLinesVisible(visibleLines);
         grid.setPrefSize(Configs.GRID_WIDTH, Configs.GRID_WIDTH);
+        //grid.setBorder();
     }
 
     private void createButtons() {
@@ -78,7 +81,12 @@ public class UserInterface {
                 //button configurations
                 buttons[x][y].setFont(Font.font(Configs.CALCULATOR_FONT, Configs.CALCULATOR_FONT_WEIGHT, Configs.BUTTON_FONT_SIZE));
                 buttons[x][y].setPrefSize(Configs.BUTTON_WIDTH, Configs.BUTTON_HEIGHT);
+                buttons[x][y].getStyleClass().add("buttons");
 
+                if (operatorButton(x, y) && !zeroButton(x, y)) {         //operatorButton configurations
+
+                    buttons[x][y].getStyleClass().add("operatorButton");
+                }
 
                 //add button to grid
                 grid.add(buttons[x][y], x, y + 1, 1, 1);
@@ -96,6 +104,7 @@ public class UserInterface {
         screen.setPrefHeight(Configs.SCREEN_HEIGHT);
         screen.setFont(Font.font(Configs.CALCULATOR_FONT, Configs.CALCULATOR_FONT_WEIGHT, Configs.SCREEN_FONT_SIZE));
         GridPane.setHalignment(screen, HPos.RIGHT);
+        screen.getStyleClass().add("screen");
 
         //add screen to grid
         grid.add(screen, 0, 0, Configs.SCREEN_COLS_WIDTH, Configs.SCREEN_ROWS_HEIGHT);
@@ -125,4 +134,14 @@ public class UserInterface {
     public Label getScreen() {
         return screen;
     }
+
+    public boolean operatorButton(int x, int y) {
+        return x == 3 || y == 3;
+
+    }
+
+    public boolean zeroButton(int x, int y) {
+        return x == 1 && y == 3;
+    }
+
 }
